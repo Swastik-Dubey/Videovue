@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Video Review</h1>
+        <div class="video-details">
+            <a href="{{ video_details.video_url }}" target="_blank">
+                <img src="{{ video_details.thumbnail }}" alt="Video Thumbnail">
+            </a>
+            <h2><a href="{{ video_details.video_url }}" target="_blank">{{ video_details.title }}</a></h2>
+            <p>{{ video_details.description }}</p>
+        </div>
+
+        <!-- Display the video summary here -->
+        <div class="video-summary">
+            <h2>Video Summary</h2>
+            <p>{{ video_summary }}</p>
+        </div>
+
+        <div class="comments-section">
+            <h2>Comments</h2>
+            <p>Video Rating: {{ video_rating }} <span>{{ get_emoji_for_rating(video_rating) }}</span></p>
+            <ul>
+                {% for comment in comments %}
+                <li class="comment">
+                    <p class="author">{{ comment.author }}</p>
+                    <p class="text">{{ comment.text }}</p>
+                    <p class="sentiment">{{ get_emoji_for_sentiment(comment.sentiment) }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- Navigation buttons for Q&A and Summarization pages -->
+        <div class="navigation-buttons">
+            <a href="{{ url_for('qna', video_id=video_details.video_id) }}" class="btn">Q&A</a>
+            <a href="{{ url_for('summarize', video_id=video_details.video_id) }}" class="btn">Summarization</a>
+        </div>
+    </div>
+</body>
+</html>

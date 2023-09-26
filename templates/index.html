@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Video Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video Search</h1>
+        <form method="POST" action="/search">
+            <input type="text" name="query" placeholder="Enter a search query" required>
+            <input type="submit" value="Search">
+        </form>
+        <ul>
+            {% for video in videos %}
+            <li>
+                <a href="{{ url_for('review', video_id=video.video_id) }}">
+                    <img src="{{ video.thumbnail }}" alt="Video Thumbnail">
+                    {{ video.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
